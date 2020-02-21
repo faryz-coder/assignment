@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = UserAdapter(films)
+            adapter = UsersAdapter(films)
         }
     }
 }
