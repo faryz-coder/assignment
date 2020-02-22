@@ -38,19 +38,18 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<List<Film>>, response: Response<List<Film>>) {
-                d("Faris", "onResponse")
+                showData(response.body())
+//                d("Faris", "onResponse ${response.body()!![0].title}")
             }
 
         })
+    }
 
-        val films = mutableListOf<Film>()
-        for( i in 0..3) {
-            films.add(Film("Boss Kaitou"))
-        }
+    private fun showData(films: List<Film>?) {
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = UsersAdapter(films)
+            adapter = UsersAdapter(films!!)
         }
     }
 }
