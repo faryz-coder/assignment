@@ -1,5 +1,6 @@
 package com.example.task_1
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,14 @@ class UsersAdapter(private val films: List<Film>) : RecyclerView.Adapter<UsersAd
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.film_row, parent, false)
-        return ViewHolder(view)
+        val holder = ViewHolder(view)
+        view.setOnClickListener {
+            val intent = Intent(parent.context, FilmDescription::class.java)
+            intent.putExtra("title", films[holder.adapterPosition].title)
+            intent.putExtra("description", films[holder.adapterPosition].description)
+            parent.context.startActivity(intent)
+        }
+        return holder
     }
 
     override fun getItemCount() = films.size
