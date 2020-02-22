@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +19,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        // set up retrofit
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://ghibliapi.herokuapp.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        //
+        
         val films = mutableListOf<Film>()
         for( i in 0..3) {
             films.add(Film("Boss Kaitou"))
