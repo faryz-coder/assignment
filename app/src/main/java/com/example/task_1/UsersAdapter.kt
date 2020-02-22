@@ -3,21 +3,26 @@ package com.example.task_1
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.film_row.view.*
 
 class UsersAdapter(private val films: MutableList<Film>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.film_row, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount() = films.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val film = films[position]
+        holder.filmName.text = film.title
+    }
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val filmName: TextView = itemView.filmName
     }
 
 }
