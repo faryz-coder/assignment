@@ -23,21 +23,35 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        getFilm() // display film on opening
+
+        swipeToRefresh.setOnRefreshListener { // re display when refresh initiated
+            getFilm()
+        }
+
+    }
+    
+    // setting up function to get recall back for refresh and first time open
+    private fun getFilm() {
+
         // set up retrofit
         val retrofit = Retrofit.Builder()
             .baseUrl("https://ghibliapi.herokuapp.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         //
+
         val api = retrofit.create(ApiService::class.java)
-        
+
         api.fetchAllFilms().enqueue(object : Callback<List<Film>> {
 
             override fun onFailure(call: Call<List<Film>>, t: Throwable) {
+                swipeToRefresh.isRefreshing = false
                 d("Faris", "onFailure")
             }
 
             override fun onResponse(call: Call<List<Film>>, response: Response<List<Film>>) {
+                swipeToRefresh.isRefreshing = false
                 showData(response.body())
 //                d("Faris", "onResponse ${response.body()!![0].title}")
             }
